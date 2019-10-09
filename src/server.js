@@ -1,9 +1,15 @@
 const express = require('express');
+const mongoose = require('mongoose');
+const routes = require('./routes');
+require('dotenv/config');
 
 const app = express();
 
-app.get('/', (req, res) => {
-    return res.json({ ok: true });
-})
+mongoose.connect(process.env.MONGOOSE_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+});
+
+app.use(routes);
 
 app.listen(process.env.PORT || 3333);
